@@ -31,6 +31,8 @@ class ConfigEnvVar(object):
 
 
 try:
+    cwd = os.getcwd()
+
     from trading_ig_config import config
     logger.info("import config from %s" % CONFIG_FILE_NAME)
 except Exception:
