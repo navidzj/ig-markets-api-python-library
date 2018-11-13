@@ -31,7 +31,23 @@ class ConfigEnvVar(object):
 
 
 try:
-    cwd = os.getcwd()
+    src = os.path.join(os.path.dirname(os.path.dirname(__file__)), "trading_ig_config.default.py")
+    dst = os.path.join(os.getcwd(), "trading_ig_config.py")
+
+    if not os.path.exists(dst):
+        logger.info("copying src:{} to dst:{}".format(src, dst))
+        from shutil import copyfile;
+        copyfile(src, dst)
+
+    with open(src, 'rt') as f:
+        src_text = f.read()
+    with open(dst, 'rt') as f:
+        dst_text = f.read()
+
+    if src_text == dst_text:
+        logger.error("API key is not configured yet. "
+                     "If you want to set the auth info from file, add the auth info to {}".format(dst))
+        raise IOError("Config is not set.")
 
     from trading_ig_config import config
     logger.info("import config from %s" % CONFIG_FILE_NAME)
