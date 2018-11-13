@@ -31,16 +31,15 @@ class ConfigEnvVar(object):
 
 
 try:
-    src = os.path.join(os.path.dirname(os.path.dirname(__file__)), "trading_ig_config.default.py")
+    src_text = '#!/usr/bin/env python\n#-*- coding:utf-8 -*-\n\n\nclass config(object):\n    username = "YOUR_USERNAME"\n    password = "YOUR_PASSWORD"\n    api_key = "YOUR_API_KEY"\n    acc_type = "DEMO"  # LIVE / DEMO\n    acc_number = "ABC123"\n'
+
     dst = os.path.join(os.getcwd(), "trading_ig_config.py")
 
     if not os.path.exists(dst):
-        logger.info("copying src:{} to dst:{}".format(src, dst))
-        from shutil import copyfile;
-        copyfile(src, dst)
+        logger.info('Creating a new {} file.'.format(dst))
+        with open(dst, 'wt') as f:
+            f.write(src_text)
 
-    with open(src, 'rt') as f:
-        src_text = f.read()
     with open(dst, 'rt') as f:
         dst_text = f.read()
 

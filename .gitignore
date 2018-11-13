@@ -3,6 +3,8 @@ sample/cache.sqlite
 trading_ig_config.py
 
 # Byte-compiled / optimized / DLL files
+
+trading_ig_config.py
 __pycache__/
 *.py[cod]
 
