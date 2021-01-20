@@ -22,8 +22,10 @@ from trading_ig.lightstreamer import LSClient, Subscription
 
 # A simple function acting as a Subscription listener
 def on_item_update(item_update):
-    print("{stock_name:<19}: Last{last_price:>6} - Time {time:<8} - "
-          "Bid {bid:>5} - Ask {ask:>5}".format(**item_update["values"]))
+    print(
+        "{stock_name:<19}: Last{last_price:>6} - Time {time:<8} - "
+        "Bid {bid:>5} - Ask {ask:>5}".format(**item_update["values"])
+    )
 
 
 def main():
@@ -39,25 +41,43 @@ def main():
     except Exception as e:
         print("Unable to connect to Lightstreamer Server")
         print(traceback.format_exc())
+        print(e)
         sys.exit(1)
 
     # Making a new Subscription in MERGE mode
     subscription = Subscription(
         mode="MERGE",
-        items=["item1", "item2", "item3", "item4",
-               "item5", "item6", "item7", "item8",
-               "item9", "item10", "item11", "item12"],
+        items=[
+            "item1",
+            "item2",
+            "item3",
+            "item4",
+            "item5",
+            "item6",
+            "item7",
+            "item8",
+            "item9",
+            "item10",
+            "item11",
+            "item12",
+        ],
         fields=["stock_name", "last_price", "time", "bid", "ask"],
-        adapter="QUOTE_ADAPTER")
+        adapter="QUOTE_ADAPTER",
+    )
 
     # Adding the "on_item_update" function to Subscription
     subscription.addlistener(on_item_update)
 
     # Registering the Subscription
     sub_key = lightstreamer_client.subscribe(subscription)
+    print(sub_key)
 
-    input("{0:-^80}\n".format("HIT CR TO UNSUBSCRIBE AND DISCONNECT FROM \
-    LIGHTSTREAMER"))
+    input(
+        "{0:-^80}\n".format(
+            "HIT CR TO UNSUBSCRIBE AND DISCONNECT FROM \
+    LIGHTSTREAMER"
+        )
+    )
 
     # Unsubscribing from Lightstreamer by using the subscription key
     # lightstreamer_client.unsubscribe(sub_key)
@@ -68,5 +88,5 @@ def main():
     lightstreamer_client.disconnect()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

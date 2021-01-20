@@ -1,4 +1,4 @@
-IG Markets REST API - Python Library
+REST API
 ====================================
 
 You can use the IG Markets HTTP / REST API to submit trade orders, open
@@ -90,7 +90,7 @@ it should display:
     2014:11:28-00:00:00  1.24598  1.24909  1.24269  1.24505
 
 Many IGService methods return `Python
-Pandas <http://pandas.pydata.org/>`__ DataFrame, Series or Panel.
+Pandas <http://pandas.pydata.org/>`__ DataFrame, Series or Panel
 
 Cache queries requests-cache
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
